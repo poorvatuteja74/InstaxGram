@@ -18,11 +18,35 @@ const SignUp = () => {
   const nameRef =useRef("");
   const passwordRef =useRef("");
   const [loading, setloading]=useState(false);
+  
   const onSubmit = async()=>{
     if(!emailRef.current || !passwordRef.current){
       Alert.alert('Login',"Please fill all the fields");
       return;
     }
+
+    let name =nameRef.current.trim();
+    let email =emailRef.current.trim();
+    let password = passwordRef.current.trim();
+
+    setloading(true);
+
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    });
+
+    setloading(false);
+
+    console.log ('session', session);
+    console.log('error', error);
+    if (error){
+      Alert.alert('Sign up', error.message);
+    }
+
   }
   return (
     <ScreenWrapper bg='white'>
