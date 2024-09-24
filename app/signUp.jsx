@@ -29,6 +29,8 @@ const SignUp = () => {
     let email =emailRef.current.trim();
     let password = passwordRef.current.trim();
 
+    console.log({ name, email, password });
+
     setloading(true);
 
     const {
@@ -85,7 +87,7 @@ const SignUp = () => {
             containerStyle={styles.inputContainer}
             inputStyle={styles.input}
           />
-          <Button title={'Sign Up'} loading={loading} onPress={onSubmit}/>
+        <Button title={'Sign Up'} loading={loading} disabled={loading} onPress={onSubmit} />
         </View>
         <View style={styles.footer}>
           <Text style={styles.footerText}>
