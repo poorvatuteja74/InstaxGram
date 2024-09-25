@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   form: {
     flexGrow: 1,
-    gap: 5,
+    gap: 1,
   },
   footer: {
     flexDirection: 'row',
@@ -142,9 +142,9 @@ const styles = StyleSheet.create({
   inputBox: {
     borderWidth: 1,
     borderColor: theme.colors.border, // Define border color
-    borderRadius: 8, // Rounded corners for the box
-    paddingHorizontal: wp(3), // Inner padding for the text
-    paddingVertical: hp(1.5), // Padding for vertical space
+    borderRadius: 12, // Rounded corners for the box
+    paddingHorizontal: wp(1), // Inner padding for the text
+    paddingVertical: hp(1), // Padding for vertical space
   },
   inputText: {
     color: theme.colors.text,

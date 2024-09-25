@@ -35,7 +35,7 @@ const Login = () => {
         
         {/* Form  */}
         <View style={styles.form}>
-          <Text style={{ fontSize: hp(1.5), color: theme.colors.text }}>
+          <Text style={{ fontSize: hp(1.5), color: theme.colors.text, marginBottom: hp(2.5)}}>
             Please login to continue
           </Text>
           <Input 
@@ -43,7 +43,8 @@ const Login = () => {
             placeholder="Enter the email"
             onChangeText={value => emailRef.current=value }
             containerStyle={styles.inputContainer}
-            inputStyle={styles.input}
+            inputContainerStyle={styles.inputBox}
+            inputStyle={styles.inputText}
           />
           <Input 
             leftIcon={<Icon name="lock" size={26} strokeWidth={1.6}/>}
@@ -51,7 +52,8 @@ const Login = () => {
             secureTextEntry
             onChangeText={value => passwordRef.current=value }
             containerStyle={styles.inputContainer}
-            inputStyle={styles.input}
+            inputContainerStyle={styles.inputBox}
+            inputStyle={styles.inputText}
           />
           <Text style={styles.forgotPassword}>
              Forgot password ?
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
   // },
   form: {
     flexGrow: 1,
-    gap: 25,
+    gap: 5,
     // justifyContent:'center'
   },
   // inputContainer: {
@@ -132,9 +134,9 @@ const styles = StyleSheet.create({
   inputBox: {
     borderWidth: 1,
     borderColor: theme.colors.border, // Define border color
-    borderRadius: 8, // Rounded corners for the box
-    paddingHorizontal: wp(3), // Inner padding for the text
-    paddingVertical: hp(1.5), // Padding for vertical space
+    borderRadius: 12, // Rounded corners for the box
+    paddingHorizontal: wp(1), // Inner padding for the text
+    paddingVertical: hp(1), // Padding for vertical space
   },
   inputText: {
     color: theme.colors.text,
