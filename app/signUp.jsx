@@ -19,7 +19,7 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   
   const onSubmit = async () => {
-    if (!emailRef.current || !passwordRef.current) {
+    if (!emailRef.current || !passwordRef.current || !nameRef.current) {
       Alert.alert('Sign Up', "Please fill all the fields");
       return;
     }
@@ -40,13 +40,16 @@ const SignUp = () => {
       }
     });
     
-
     setLoading(false);
 
-    console.log('session', session);
-    console.log('error', error);
     if (error) {
-      Alert.alert('Sign up', error.message);
+      console.error('Sign Up Error:', error); // Improved error logging
+      Alert.alert('Sign Up', error.message);
+    } else {
+      console.log('Session:', session); // Log session information
+      Alert.alert('Success', 'Account created successfully!'); // Success message
+      // Optionally redirect the user after successful sign-up
+      router.push('login'); // Redirect to the login page
     }
   }
 
@@ -71,16 +74,16 @@ const SignUp = () => {
             placeholder="Enter your name"
             onChangeText={value => nameRef.current = value}
             containerStyle={styles.inputContainer}
-            inputContainerStyle={styles.inputBox} // Updated
-            inputStyle={styles.inputText} // Updated
+            inputContainerStyle={styles.inputBox}
+            inputStyle={styles.inputText}
           />
           <Input 
             leftIcon={<Icon name="mail" size={26} strokeWidth={1.6} />}
             placeholder="Enter the email"
             onChangeText={value => emailRef.current = value}
             containerStyle={styles.inputContainer}
-            inputContainerStyle={styles.inputBox} // Updated
-            inputStyle={styles.inputText} // Updated
+            inputContainerStyle={styles.inputBox}
+            inputStyle={styles.inputText}
           />
           <Input 
             leftIcon={<Icon name="lock" size={26} strokeWidth={1.6} />}
@@ -88,8 +91,8 @@ const SignUp = () => {
             secureTextEntry
             onChangeText={value => passwordRef.current = value}
             containerStyle={styles.inputContainer}
-            inputContainerStyle={styles.inputBox} // Updated
-            inputStyle={styles.inputText} // Updated
+            inputContainerStyle={styles.inputBox}
+            inputStyle={styles.inputText}
           />
           <Button title={'Sign Up'} loading={loading} disabled={loading} onPress={onSubmit} />
         </View>
@@ -143,13 +146,12 @@ const styles = StyleSheet.create({
   },
   inputBox: {
     borderWidth: 1,
-    borderColor: theme.colors.border, // Define border color
-    borderRadius: 12, // Rounded corners for the box
-    paddingHorizontal: wp(1), // Inner padding for the text
-    paddingVertical: hp(1), // Padding for vertical space
+    borderColor: theme.colors.border,
+    borderRadius: 12,
+    paddingHorizontal: wp(1),
+    paddingVertical: hp(1),
   },
   inputText: {
     color: theme.colors.text,
   },
- 
 });
