@@ -9,6 +9,7 @@ import { wp, hp } from '../helpers/common';
 import Icon from '../assets/icons';
 import { Input } from 'react-native-elements'; 
 import Button from '../components/Button';
+import { supabase } from '../lib/supabase';
 
 const SignUp = () => {
   const router = useRouter();
@@ -31,13 +32,14 @@ const SignUp = () => {
 
     setLoading(true);
 
-    const { 
-      data: { session }, 
-      error 
-    } = await supabase.auth.signUp({
-      email: email,
-      password: password,
+    const { data: { session }, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { name }
+      }
     });
+    
 
     setLoading(false);
 
@@ -149,5 +151,5 @@ const styles = StyleSheet.create({
   inputText: {
     color: theme.colors.text,
   },
-
+ 
 });
