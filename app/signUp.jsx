@@ -7,49 +7,47 @@ import BackButton from '../components/BackButton';
 import { useRouter } from 'expo-router'; 
 import { wp, hp } from '../helpers/common';
 import Icon from '../assets/icons';
-import {Input } from 'react-native-elements'; // Make sure this import matches the library you're using
-import { Svg, Path } from 'react-native-svg'; 
-import Button from '../components/Button'
-import Login from './login';
+import { Input } from 'react-native-elements'; 
+import Button from '../components/Button';
 
 const SignUp = () => {
   const router = useRouter();
-  const emailRef =useRef("");
-  const nameRef =useRef("");
-  const passwordRef =useRef("");
-  const [loading, setloading]=useState(false);
+  const emailRef = useRef("");
+  const nameRef = useRef("");
+  const passwordRef = useRef("");
+  const [loading, setLoading] = useState(false);
   
-  const onSubmit = async()=>{
-    if(!emailRef.current || !passwordRef.current){
-      Alert.alert('Login',"Please fill all the fields");
+  const onSubmit = async () => {
+    if (!emailRef.current || !passwordRef.current) {
+      Alert.alert('Sign Up', "Please fill all the fields");
       return;
     }
 
-    let name =nameRef.current.trim();
-    let email =emailRef.current.trim();
+    let name = nameRef.current.trim();
+    let email = emailRef.current.trim();
     let password = passwordRef.current.trim();
 
     console.log({ name, email, password });
 
-    setloading(true);
+    setLoading(true);
 
-    const {
-      data: { session },
-      error,
+    const { 
+      data: { session }, 
+      error 
     } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
 
-    setloading(false);
+    setLoading(false);
 
-    console.log ('session', session);
+    console.log('session', session);
     console.log('error', error);
-    if (error){
+    if (error) {
       Alert.alert('Sign up', error.message);
     }
-
   }
+
   return (
     <ScreenWrapper bg='white'>
       <StatusBar style='dark' />
@@ -62,39 +60,46 @@ const SignUp = () => {
         
         {/* Form  */}
         <View style={styles.form}>
-          <Text style={{ fontSize: hp(1.5), color: theme.colors.text }}>
+          <Text style={{ fontSize: hp(1.5), color: theme.colors.text, marginBottom: hp(2.5) }}>
             Please fill the details to create an account
           </Text>
+          
           <Input 
-            leftIcon={<Icon name="user" size={26} strokeWidth={1.6}/>}
+            leftIcon={<Icon name="user" size={26} strokeWidth={1.6} />}
             placeholder="Enter your name"
-            onChangeText={value => nameRef.current=value }
+            onChangeText={value => nameRef.current = value}
             containerStyle={styles.inputContainer}
-            inputStyle={styles.input}
+            inputContainerStyle={styles.inputBox} // Updated
+            inputStyle={styles.inputText} // Updated
           />
           <Input 
-            leftIcon={<Icon name="mail" size={26} strokeWidth={1.6}/>}
+            leftIcon={<Icon name="mail" size={26} strokeWidth={1.6} />}
             placeholder="Enter the email"
-            onChangeText={value => emailRef.current=value }
+            onChangeText={value => emailRef.current = value}
             containerStyle={styles.inputContainer}
-            inputStyle={styles.input}
+            inputContainerStyle={styles.inputBox} // Updated
+            inputStyle={styles.inputText} // Updated
           />
           <Input 
-            leftIcon={<Icon name="lock" size={26} strokeWidth={1.6}/>}
+            leftIcon={<Icon name="lock" size={26} strokeWidth={1.6} />}
             placeholder="Enter your Password"
             secureTextEntry
-            onChangeText={value => passwordRef.current=value }
+            onChangeText={value => passwordRef.current = value}
             containerStyle={styles.inputContainer}
-            inputStyle={styles.input}
+            inputContainerStyle={styles.inputBox} // Updated
+            inputStyle={styles.inputText} // Updated
           />
-        <Button title={'Sign Up'} loading={loading} disabled={loading} onPress={onSubmit} />
+          <Button title={'Sign Up'} loading={loading} disabled={loading} onPress={onSubmit} />
         </View>
+        
         <View style={styles.footer}>
           <Text style={styles.footerText}>
             Already have an account!
           </Text>
-          <Pressable onPress={()=>router.push('login')} >
-            <Text style={[styles.footerText, {color: theme.colors.primaryDark, fontWeight: theme.fonts.semibold}]}>Login</Text>
+          <Pressable onPress={() => router.push('login')}>
+            <Text style={[styles.footerText, { color: theme.colors.primaryDark, fontWeight: theme.fonts.semibold }]}>
+              Login
+            </Text>
           </Pressable>
         </View>
       </View>
@@ -107,42 +112,17 @@ export default SignUp;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingTop: hp(2),
-    gap:45,
+    gap: 45,
     paddingHorizontal: wp(5),
   },
   welcomeText: {
     fontSize: hp(4),
     fontWeight: theme.fonts.bold,
     color: theme.colors.text,
-    // marginBottom: hp(1),
-    // marginTop: hp(3),
   },
-  // subText: {
-  //   fontSize: hp(2.5),
-  //   fontWeight: theme.fonts.regular,
-  //   color: theme.colors.text,
-  //   marginBottom: hp(2),
-  // },
   form: {
     flexGrow: 1,
-    gap: 25,
-    // justifyContent:'center'
-  },
-  // inputContainer: {
-  //   marginBottom: hp(2),
-  // },
-  // input: {
-  //   borderWidth: 1,
-  //   borderColor: theme.colors.border,
-  //   borderRadius: 5,
-  //   padding: hp(1),
-  // },
-  forgotPassword: {
-    textAlign: 'right',
-    fontWeight: theme.fonts.semibold,
-    color: theme.colors.text,
-    // marginBottom: hp(3),
+    gap: 5,
   },
   footer: {
     flexDirection: 'row',
@@ -157,7 +137,7 @@ const styles = StyleSheet.create({
     fontSize: hp(1.6),
   },
   inputContainer: {
-    paddingHorizontal: 0, // Remove default padding if needed
+    paddingHorizontal: 0,
   },
   inputBox: {
     borderWidth: 1,
@@ -169,5 +149,4 @@ const styles = StyleSheet.create({
   inputText: {
     color: theme.colors.text,
   },
-  
 });
