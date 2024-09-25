@@ -149,4 +149,5 @@ const styles = StyleSheet.create({
   inputText: {
     color: theme.colors.text,
   },
+
 });
