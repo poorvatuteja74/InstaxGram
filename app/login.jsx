@@ -10,6 +10,7 @@ import Icon from '../assets/icons';
 import {Input } from 'react-native-elements'; // Make sure this import matches the library you're using
 import { Svg, Path } from 'react-native-svg'; 
 import Button from '../components/Button'
+import { supabase } from '../lib/supabase';
 
 const Login = () => {
   const router = useRouter();
@@ -22,6 +23,22 @@ const Login = () => {
       Alert.alert('Sign Up',"Please fill all the fields");
       return;
     }
+
+    let email = emailRef.current.trim();
+    let password = passwordRef.current.trim();
+    setloading(true);
+    const {error} = await supabase.auth.signInWithPassword ({
+      email,
+      password
+    });
+
+    setloading(false);
+
+    console.log('error:',error);
+    if(error){
+      Alert.alert("Login",error.message);
+    }
+
   }
   return (
     <ScreenWrapper bg='white'>
